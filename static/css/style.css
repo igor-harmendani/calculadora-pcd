@@ -37,6 +37,7 @@ html,body{
     font-family: 'BB_Bold';
     font-size: 2.5em;
     text-align: center;
+    right: 60px;
     top: 20px;
     color:rgb(70 94 255);
 }
@@ -70,6 +71,8 @@ label{
 #qtde-parcela-label,
 #parcela-restante-label,
 #selector {
+    position: relative;;
+    right: 23px;
     display: flexbox;
     margin: 10px;
     align-items: center;
@@ -81,7 +84,7 @@ label{
 }
 
 #calcular{
-    left: 30px;
+    /*left: 30px;*/
     display: block;
     border-radius: 10px;
     position: relative;
@@ -174,7 +177,9 @@ select{
 }
 
 #footer p{
+    position: relative;
     font-family: 'BB_Light';
     margin: 15px;
+    right: 62px;
     color: rgb(0, 45, 75)
 }
