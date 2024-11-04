@@ -1,6 +1,6 @@
 # Calculadora de Portabilidade de Crédito (PCD)
 
-Em alguns casos, o extrato de consignação do cliente não nos fornece dados essenciais para o correto cálculo do saldo devedor, como taxa de juros e valor liberado. Além disso, recentemente foi imposto uma margem de erro de 15% sobre o saldo devedor da operação e de 3 parcelas sobre a quantidade de parcelas vincendas, o que dificultou bastante o trabalho de todos da Rede. O objetivo dessa ferramenta é realizar este cáculo, resultando em valores aproximados aos valores reais.
+Em alguns casos, o extrato de consignação do cliente não nos fornece dados essenciais para o correto cálculo do saldo devedor, como taxa de juros e valor liberado. O objetivo dessa ferramenta é realizar este cáculo, resultando em valores aproximados aos valores reais.
 
 ## Aviso
 Não há garantia de que os valores calculados pela aplicação condizam com a realidade. Não me responsabilizo pelos dados fornecidos por esta aplicação. **NÃO DEPENDA DESSA APLICAÇÃO PARA ENTREGAR SUAS METAS.**
