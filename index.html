@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <title>Calculadora de PCD</title>
+</head>
+<body>
+    <header>
+        <div id="title-bg">
+            <div id="title-text">Calculadora de PCD</div>
+        </div>
+    </header>
+    <main>
+        <div class="wrapper">
+            <div class="field" id="valor-parcela-label">
+                <label for="valor-parcela">Valor da Parcela:</label>
+                <input id="valor-parcela" type="text" oninput="formatarValor(this)"></input>
+            </div>
+            <div class="field" id="qtde-parcela-label">
+                <label for="qtde-parcela">Quantidade de parcelas:</label>
+                <input id="qtde-parcela" type="text" placeholder="0"></input>
+            </div>
+            <div class="field" id="parcela-restante-label">
+                <label for="parcela-restante">Próxima parcela:</label>
+                <input id="parcela-restante" type="text" placeholder="0"></input>
+            </div>
+            <div class="field" id="selector">
+                <label for="instituicao">Instituição:</label>
+                <select id="instituicao" type="text"></select>
+            </div>
+            <button id="calcular">Calcular</button>
+            <div id="data-wrapper">
+                <div id="taxa">Taxa no período: 0,00%</div>
+                <div id="valor-liberado">Valor liberado: R$ 0.000,00</div>
+                <div id="saldo-devedor">Saldo devedor: R$ 0.000,00</div>
+            </div>   
+        </div>
+    </main>
+    <footer>
+        <div id="footer">
+            <p>Criado por Igor Harmendani</p>
+            <p><a href="https://linkedin.com/in/igorharmendani" target="_blank">LinkedIn</a></p>
+            <p><a href="https://github.com/igor-harmendani" target="_blank">Github</a></p>
+            <p><a href="igorharmen@email.com" target="_blank">Teams</a></p>
+        </div> 
+    </footer>
+    <script src="static/js/script.js" defer></script>
+</body>
+</html>

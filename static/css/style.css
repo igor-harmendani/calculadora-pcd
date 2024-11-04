@@ -1,0 +1,180 @@
+@font-face {
+    font-family: 'BB_Light';
+    src: url(../fonts/BancoDoBrasilRCTextos-Light.woff);
+}
+
+@font-face {
+    font-family: 'BB_Regular';
+    src: url(../fonts/BancoDoBrasilRCTextos-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'BB_Medium';
+    src: url(../fonts/BancoDoBrasilRCTextos-Medium.woff2);
+}
+
+@font-face {
+    font-family: 'BB_Bold';
+    src: url(../fonts/BancoDoBrasilRCTextos-Bold.woff);
+}
+
+html,body{
+    background-color: rgb(0, 45, 75);
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+
+#title-bg{
+    height: 100px;
+    width: 100%;
+    background-color: rgb(252 252 48);
+}
+
+#title-text{
+    position: relative;
+    font-family: 'BB_Bold';
+    font-size: 2.5em;
+    text-align: center;
+    top: 20px;
+    color:rgb(70 94 255);
+}
+
+.wrapper{
+    font-size: 1.1em;
+    position: relative;
+    top: 100px;
+    right: 60px;
+    width: 600px;
+    margin: auto;
+    font-family: 'BB_Light';
+    color: white
+}
+
+.field{
+    display:flex;
+    margin: 10px 0;
+    justify-content: space-between;
+    align-items: center;
+}
+
+label{
+    flex: 0 0 200px;
+    text-align: right;
+    margin-right: 10px;
+    font-size: 1em;
+}
+
+#valor-parcela-label,
+#qtde-parcela-label,
+#parcela-restante-label,
+#selector {
+    display: flexbox;
+    margin: 10px;
+    align-items: center;
+    font-size: 1.2em;
+}
+
+#selector select{
+    margin: 10px
+}
+
+#calcular{
+    left: 30px;
+    display: block;
+    border-radius: 10px;
+    position: relative;
+    align-items: center;
+    margin: auto;
+    background-color: rgb(252 252 48);
+    height: 40px;
+    width: 400px;
+    color: rgb(70 94 255);
+    font-family: 'BB_Medium';
+    font-size: 1.2em;
+    top: 20px;
+    outline: none;
+    cursor: pointer;
+    border-style: none;
+    box-shadow: none;
+}
+
+#calcular:hover{
+    background-color: rgb(252, 215, 48);
+}
+#calcular:active{
+    outline:none;
+    border-style: none;
+    background-color: rgba(252, 215, 48, 0.863)
+}
+
+
+
+input,
+select{
+    font-family: 'BB_Medium';
+    border-radius: 8px;
+    width: 100%;
+    height: 30px;
+    font-size: 0.9em;
+    padding: 5px;
+    box-sizing: border-box;
+    line-height: 1.2;
+}
+
+#data-wrapper{
+    position: relative;
+    top: 30px;
+    margin-bottom: 200px;
+    padding: 20px;
+    font-size: 1.3em;
+    text-align: center;
+}
+#taxa, #valor-liberado, #saldo-devedor{
+    margin: 20px
+    
+}
+::placeholder{
+    color: black
+}
+#saldo-devedor{
+    font-family: 'BB_Bold';
+    font-size: 1.5em
+}
+
+/*ITENS DO DROPDOWN*/
+.select2-results__option{
+    font-size: 1em;
+    font-family: 'BB_Medium';
+
+}
+
+/*DROPDOWN*/
+#select2-instituicao-container{
+    font-family: 'BB_Medium';
+    font-size: 0.7em;
+    max-width: 300px;
+}
+
+/*WRAPPER DO SELECTOR*/ 
+.select2-selection{
+    margin-top: 8px
+}
+
+#footer{
+    background: rgb(252 252 48);
+    height: 50px;
+    color: white;
+    width: 100%;
+    display: flex;
+    position: absolute;
+    margin: 0;
+    justify-content: center;
+}
+
+#footer p{
+    font-family: 'BB_Light';
+    margin: 15px;
+    color: rgb(0, 45, 75)
+}
