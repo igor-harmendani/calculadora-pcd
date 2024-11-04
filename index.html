@@ -19,15 +19,15 @@
         <div class="wrapper">
             <div class="field" id="valor-parcela-label">
                 <label for="valor-parcela">Valor da Parcela:</label>
-                <input id="valor-parcela" type="text" oninput="formatarValor(this)"></input>
+                <input id="valor-parcela" type="text" oninput="formatarValor(this)" autocomplete="off" placeholder="R$ 0,00"></input>
             </div>
             <div class="field" id="qtde-parcela-label">
                 <label for="qtde-parcela">Quantidade de parcelas:</label>
-                <input id="qtde-parcela" type="text" placeholder="0"></input>
+                <input id="qtde-parcela" type="text" placeholder="0" autocomplete="off"></input>
             </div>
             <div class="field" id="parcela-restante-label">
                 <label for="parcela-restante">Próxima parcela:</label>
-                <input id="parcela-restante" type="text" placeholder="0"></input>
+                <input id="parcela-restante" type="text" placeholder="0" autocomplete="off"></input>
             </div>
             <div class="field" id="selector">
                 <label for="instituicao">Instituição:</label>
@@ -43,10 +43,10 @@
     </main>
     <footer>
         <div id="footer">
+            <p>Versão 1.0.0-alpha1</p>
             <p>Criado por Igor Harmendani</p>
             <p><a href="https://linkedin.com/in/igorharmendani" target="_blank">LinkedIn</a></p>
-            <p><a href="https://github.com/igor-harmendani" target="_blank">Github</a></p>
-            <p><a href="igorharmen@email.com" target="_blank">Teams</a></p>
+            <p><a href="https://github.com/igor-harmendani/calculadora-pcd" target="_blank">Github</a></p>
         </div> 
     </footer>
     <script src="static/js/script.js" defer></script>
