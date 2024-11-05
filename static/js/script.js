@@ -1,4 +1,5 @@
 let ispb;
+
 fetch("./static/json/ispb.json")
     .then(res => res.json())
     .then(data => {
@@ -15,7 +16,6 @@ fetch("./static/json/ispb.json")
             const option = document.createElement('option');
             option.value = item.ISPB;
             option.textContent = item.Nome_Extenso;
-
             select.appendChild(option);
         });
     
@@ -32,104 +32,112 @@ fetch("./static/json/ispb.json")
 
 const selectElement = document.getElementById('instituicao');
 
-
-function formatarValor(input){
+function formatarValor(input) {
     let valor = input.value.replace(/\D/g, '');
     let valorNumero = parseFloat(valor);
 
     if (!isNaN(valorNumero)){
-        let valorFormatado = valorNumero/100;
-        input.value = 'R$ ' + valorFormatado.toLocaleString('pt-br', {minimumFractionDigits:2, maximumFractionDigits:2});
+        let valorFormatado = valorNumero / 100;
+        input.value = 'R$ ' + valorFormatado.toLocaleString('pt-br', {minimumFractionDigits: 2, maximumFractionDigits: 2});
     } else {
         input.value = 'R$ 0,00';
     }
-
 }
 
 /****************CALCULA O VALOR QUE FOI LIBERADO NO ATO DA CONTRATAÇÃO**************************************/
 
-document.getElementById("calcular").addEventListener("click", function(){
-    const valorPrestacaoStr = document.getElementById('valor-parcela').value.replace('R$','').replace('.','').replace(',','.');
-    const valorPrestacao = parseFloat(valorPrestacaoStr)
+document.getElementById("calcular").addEventListener("click", function() {
+    const valorPrestacaoStr = document.getElementById('valor-parcela').value.replace('R$', '').replace('.', '').replace(',', '.');
+    const valorPrestacao = parseFloat(valorPrestacaoStr);
     const qtdeParcelas = document.getElementById('qtde-parcela').value;
 
-    function subtractMonthsFromDate(date, months){ //Função que subtrai os meses da data atual
+    if (qtdeParcelas <= 0){
+        alert("Número de parcelas deve ser superior a zero.")
+    }
+
+
+    function subtractMonthsFromDate(date, months) {
         let dataAtual = new Date(date);
         dataAtual.setMonth(dataAtual.getMonth() - months);
-    
         return dataAtual;
     }
-    
-    //SUBSTITUIR PELO INPUT
-    const proximaParcela = document.getElementById('parcela-restante').value;//Usará a quantidade de parcelas pagas para calcular quando o empréstimo foi contratado
-    const parcelasPagas = proximaParcela - 1; //O excon mostra a próxima parcela, portanto, devemos subtrair 1 para obter a quantidade de parcelas já pagas
-    
-    let dataAtual = new Date();//Obtém data atual
-    let dataContratacao = subtractMonthsFromDate(dataAtual, parcelasPagas)//Faz a "volta no tempo"
-    let dataISO = dataContratacao.toISOString().split('T')[0]; //Converte para o formato YYYY-MM-DD
-    console.log('Contratado em: ', dataISO);
-    
-    const tempoRestante = qtdeParcelas - parcelasPagas;
 
-    function construirURL(cnpj, dataInicio){
-        const baseURL = 'https://olinda.bcb.gov.br/olinda/servico/taxaJuros/versao/v2/odata/TaxasJurosDiariaPorInicioPeriodo?$format=json&';
-        const filtros = `$filter=cnpj8 eq '${cnpj}' and Modalidade eq 'Crédito pessoal consignado público - Pré-fixado' and InicioPeriodo eq '${dataInicio}'`;
-        
-        return `${baseURL}${filtros}`;
-    }
-    
-    //OBTÉM OS DADOS DO JSON OBTIDO PELA URL ACIMA, CONSIDERANDO OS INPUTS DO USUÁRIO
-    async function obterDadosBacen(){ //Como fetch é assíncrono, é necessário aguardar a resposta antes de continuar
-        const url = construirURL(ispb, dataISO);
-        try{
-            const response = await fetch(url);
-            if (!response.ok){
-                throw new Error("Network response was not ok " + response.statusText);
-            }
-    
-            const data = await response.json();
-            if (data.value && data.value.length > 0){
-                const taxa = data.value[0].TaxaJurosAoMes;
-                document.getElementById("taxa").textContent = 'Taxa no período: ' + taxa.toFixed(2).toString().replace('.',',') + '%';
-                return taxa;
-            } else {
-                console.log("Nenhum dado retornado");
-                document.getElementById("taxa").textContent = 'Sem taxa disponível para o período.';
-                return null;
-            }
-        } catch (error) {
-            console.log("Houve um problema com a requisição fetch: ", error);
-        }
+    const proximaParcela = document.getElementById('parcela-restante').value;
+    const parcelasPagas = proximaParcela - 1;
+
+    if (qtdeParcelas <= parcelasPagas){
+        alert('A quantidade total de parcelas não pode ser menor que o número de parcelas pagas.')
     };
 
+    let dataAtual = new Date();
+    let dataContratacao = subtractMonthsFromDate(dataAtual, parcelasPagas);
+    console.log('Contratado em: ', dataContratacao.toISOString().split('T')[0]);
 
-    obterDadosBacen().then(taxa =>{  //Espera a função obterDadosBacen() rodar e retornar resultado
-        if (taxa !== null){
-            function calculaValorLiberado(parcela, tempo, taxa){
-                //FORMULA: VF = (1-(1+i)^-n/j)*p Fonte: https://www3.bcb.gov.br/CALCIDADAO/publico/exibirMetodologiaFinanciamentoPrestacoesFixas.do?method=exibirMetodologiaFinanciamentoPrestacoesFixas
-                let taxaDecimal = taxa/100;
-                let valorFinanciado = ((1 - Math.pow((1+taxaDecimal), -tempo)) / taxaDecimal) * parcela;
+    const tempoRestante = qtdeParcelas - parcelasPagas;
+    document.getElementById('parcelas-em-ser').textContent = `Parcelas restantes: ${tempoRestante}`;
+
+    function construirURL(cnpj, dataInicio) {
+        const baseURL = 'https://olinda.bcb.gov.br/olinda/servico/taxaJuros/versao/v2/odata/TaxasJurosDiariaPorInicioPeriodo?$format=json&';
+        const filtros = `$filter=cnpj8 eq '${cnpj}' and Modalidade eq 'Crédito pessoal consignado público - Pré-fixado' and InicioPeriodo eq '${dataInicio}'`;
+        return `${baseURL}${filtros}`;
+    }
+
+    // Função para obter dados e ajustar a data até encontrar resultados
+    async function obterDadosBacen() {
+        const primeiroDiaDoMes = new Date(dataContratacao.getFullYear(), dataContratacao.getMonth(), 1);
+        const ultimoDiaDoMes = new Date(dataContratacao.getFullYear(), dataContratacao.getMonth() + 1, 0); // Último dia do mês
+
+        let diaAtual = primeiroDiaDoMes;
+
+        while (diaAtual <= ultimoDiaDoMes) {
+            const url = construirURL(ispb, diaAtual.toISOString().split('T')[0]);
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error("Network response was not ok " + response.statusText);
+                }
+
+                const data = await response.json();
+                if (data.value && data.value.length > 0) {
+                    const taxa = data.value[0].TaxaJurosAoMes;
+                    document.getElementById("taxa").textContent = 'Taxa no período: ' + taxa.toFixed(2).toString().replace('.', ',') + '%';
+                    return taxa; // Retorna a taxa encontrada
+                } else {
+                    console.log("Nenhum dado retornado para a data: ", diaAtual.toISOString().split('T')[0]);
+                }
+            } catch (error) {
+                console.log("Houve um problema com a requisição fetch: ", error);
+                break; // Sai do loop se houver erro
+            }
+
+            diaAtual.setDate(diaAtual.getDate() + 1); // Avança para o próximo dia
+        }
+
+        // Se não encontrar nenhuma taxa, atualiza a UI
+        document.getElementById("taxa").textContent = 'Sem taxa disponível para o período.';
+        return null;
+    };
+
+    obterDadosBacen().then(taxa => {
+        if (taxa !== null) {
+            function calculaValorLiberado(parcela, tempo, taxa) {
+                let taxaDecimal = taxa / 100;
+                let valorFinanciado = ((1 - Math.pow((1 + taxaDecimal), -tempo)) / taxaDecimal) * parcela;
                 return valorFinanciado;
             }
             let valorLiberado = calculaValorLiberado(valorPrestacao, qtdeParcelas, taxa);
             let valorLiberadoFormatado = valorLiberado.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            document.getElementById("valor-liberado").textContent = 'Valor liberado: R$ ' +  valorLiberadoFormatado;
+            document.getElementById("valor-liberado").textContent = 'Valor liberado: R$ ' + valorLiberadoFormatado;
 
             /**************************CALCULADORA DE VALOR PRESENTE, DESCONTANDO PARCELAS JÁ PAGAS*************************/
-            function calculaValorPresente(parcela, tempo, taxa){
-                //FÓRMULA: VP = M/i * (1-1/(1+i)^n) + VF/(1+i)^n
-                let txDec = taxa/100;
-                let valorPresente = parcela*((1-Math.pow(1+txDec, -tempo))/txDec);
+            function calculaValorPresente(parcela, tempo, taxa) {
+                let txDec = taxa / 100;
+                let valorPresente = parcela * ((1 - Math.pow(1 + txDec, -tempo)) / txDec);
                 return valorPresente;
             }
             let saldoDevedor = calculaValorPresente(valorPrestacao, tempoRestante, taxa);
             let saldoDevedorFormatado = saldoDevedor.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            document.getElementById("saldo-devedor").textContent = 'Saldo devedor: R$ ' +  saldoDevedorFormatado;
-        };
-    })
-})
-
-
-
-
-
+            document.getElementById("saldo-devedor").textContent = 'Saldo devedor: R$ ' + saldoDevedorFormatado;
+        }
+    });
+});
