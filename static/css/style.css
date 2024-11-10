@@ -157,7 +157,34 @@ select {
     color: rgb(0, 45, 75);
 }
 
+#taxa a{
+    text-decoration: none;
+    color: white
+}
 
+dialog{
+    border: none;
+    border-radius: .5rem;
+    box-shadow: 0 0 1em rgb(0 0 0/.3);
+    width: 60%;
+    font-size: 0.8em;
+}
+dialog::backdrop{
+    background-color: rgb(0 0 0/.6);
+}
+
+#closeDialog{
+    border: none;
+    cursor: pointer;
+    background-color: rgb(252, 252, 48);
+    font-size: 0.7em;
+    color: rgb(70, 94, 255);
+    font-family: 'BB_Regular';
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+
+}
 
 
 @media (max-width: 768px) {

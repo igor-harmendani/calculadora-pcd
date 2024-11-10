@@ -90,6 +90,7 @@ document.getElementById("calcular").addEventListener("click", function() {
         let diaAtual = primeiroDiaDoMes;
 
         while (diaAtual <= ultimoDiaDoMes) {
+            document.getElementById("taxa").textContent = 'Verificando, aguarde...';
             const url = construirURL(ispb, diaAtual.toISOString().split('T')[0]);
             try {
                 const response = await fetch(url);
@@ -113,8 +114,23 @@ document.getElementById("calcular").addEventListener("click", function() {
             diaAtual.setDate(diaAtual.getDate() + 1); // Avança para o próximo dia
         }
 
-        // Se não encontrar nenhuma taxa, atualiza a UI
-        document.getElementById("taxa").textContent = 'Sem taxa disponível para o período.';
+        // Se não encontrar nenhuma taxa, atualiza a UI e dá opção de mostrar popup de ajuda
+     
+        var HTML = '<a href="#" id="taxaLink">Sem taxa disponível para o período. ⓘ</a>'
+        document.getElementById("taxa").innerHTML = HTML;
+
+        document.getElementById("taxaLink").addEventListener("click", function(event){
+            event.preventDefault();
+            openDialog();
+        })
+
+        function openDialog(){
+            document.getElementById("taxaDialog").showModal();
+        }
+
+        document.getElementById("closeDialog").addEventListener("click", function(){
+            document.getElementById("taxaDialog").close();
+        })
         return null;
     };
 
