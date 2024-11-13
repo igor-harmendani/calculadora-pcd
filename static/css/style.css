@@ -143,6 +143,8 @@ select {
 }
 
 #footer {
+    position: fixed;
+    bottom: 0;
     background: rgb(252, 252, 48);
     height: 80px;
     color: white;
