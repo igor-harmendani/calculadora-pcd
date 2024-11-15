@@ -224,6 +224,10 @@ dialog::backdrop{
         font-size: 1.1em; 
     }
 
+    #footer{
+        position: relative;
+    }
+
     #footer p {
         font-size: 0.8em; 
         margin: 5px; 
@@ -232,6 +236,10 @@ dialog::backdrop{
 
 
 @media (max-width: 480px) {
+    body, html{
+        overflow-x: hidden;
+    }
+
     .field {
         flex-direction: column; 
         margin: 10px 0; 
@@ -250,6 +258,10 @@ dialog::backdrop{
         font-size: 0.9em; 
     }
 
+    #footer{
+        position: relative;
+    }
+
     #calcular {
         width: 100%; 
         font-size: 1.1em; 
@@ -261,6 +273,7 @@ dialog::backdrop{
     }
 
     #footer p {
-        margin: 0; 
+        display: flex;
+        margin: 2px; 
     }
 }
