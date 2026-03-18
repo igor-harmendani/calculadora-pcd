@@ -78,7 +78,7 @@ document.getElementById("calcular").addEventListener("click", function() {
 
     function construirURL(cnpj, dataInicio) {
         const baseURL = 'https://olinda.bcb.gov.br/olinda/servico/taxaJuros/versao/v2/odata/TaxasJurosDiariaPorInicioPeriodo?$format=json&';
-        const filtros = `$filter=cnpj8 eq '${cnpj}' and Modalidade eq 'Crédito pessoal consignado público - Pré-fixado' and InicioPeriodo eq '${dataInicio}'`;
+        const filtros = `$filter=cnpj8 eq '${cnpj}' and Modalidade eq 'Crédito pessoal consignado público - Prefixado' and InicioPeriodo eq '${dataInicio}'`;
         return `${baseURL}${filtros}`;
     }
 
